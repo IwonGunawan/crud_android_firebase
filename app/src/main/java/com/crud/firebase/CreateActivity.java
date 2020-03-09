@@ -1,8 +1,5 @@
 package com.crud.firebase;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,7 +11,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.crud.firebase.ItemModel;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -68,9 +67,8 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
              */
             ItemModel itemModel = new ItemModel(name, brand, price);
 
-            Log.d("item_model", "save: " + itemModel);
-
             db.child("item").push().setValue(itemModel).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+
                 @Override
                 public void onSuccess(Void aVoid) {
                     itemName.setText("");
@@ -78,12 +76,10 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
                     itemPrice.setText("");
 
                     Toast.makeText(CreateActivity.this, "Success Save Data", Toast.LENGTH_LONG).show();
+                    finish();
                 }
 
-                public void onFailed(Throwable e) {
-                    Log.d("onfailed", "onFailed: " + e);
-                }
-            });
+            } );
         }
         else
         {
