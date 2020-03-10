@@ -1,5 +1,6 @@
 package com.crud.firebase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
@@ -39,15 +41,20 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainActivityAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MainActivityAdapter.ViewHolder holder, final int position) {
         /*
         menampilkan data pada view
          */
         final String name   = listItem.get(position).getName();
-        holder.itemName.setOnClickListener(new View.OnClickListener() {
+        final String price  = listItem.get(position).getPrice();
+
+        holder.itemName.setText(name);
+        holder.itemPrice.setText(price);
+        holder.cvListing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // untuk detail data
+                context.startActivity(DetailActivity.getActIntent((Activity) context).putExtra("data", listItem.get(position)));
             }
         });
         holder.itemName.setOnLongClickListener(new View.OnLongClickListener() {
@@ -58,7 +65,6 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             }
         });
 
-        holder.itemName.setText(name);
     }
 
     @Override
@@ -73,11 +79,16 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         untuk variable saat ini data hanya menggunakan strian untuk tiap item
         dan view hanya memiliki 1 textview
          */
+        CardView cvListing;
         TextView itemName;
+        TextView itemPrice;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemName = (TextView) itemView.findViewById(R.id.item_name);
+
+            cvListing   = (CardView) itemView.findViewById(R.id.cv_listing);
+            itemName    = (TextView) itemView.findViewById(R.id.item_name);
+            itemPrice   = (TextView) itemView.findViewById(R.id.item_price);
         }
     }
 }
