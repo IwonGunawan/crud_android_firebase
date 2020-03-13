@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         /*
         inisiasi viewholder
          */
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false);
 
         /* set ukuran view, margin, padding dan parameter lainnya */
@@ -50,18 +50,18 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
         holder.itemName.setText(name);
         holder.itemPrice.setText(price);
-        holder.cvListing.setOnClickListener(new View.OnClickListener() {
+        holder.ltListing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // untuk detail data
                 context.startActivity(DetailActivity.getActIntent((Activity) context).putExtra("data", listItem.get(position)));
             }
         });
-        holder.itemName.setOnLongClickListener(new View.OnLongClickListener() {
+
+        holder.cvListing.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                // untuk update dan delete
-                return true;
+            public void onClick(View v) {
+                context.startActivity(DetailActivity.getActIntent((Activity) context).putExtra("data", listItem.get(position)));
             }
         });
 
@@ -80,6 +80,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         dan view hanya memiliki 1 textview
          */
         CardView cvListing;
+        LinearLayout ltListing;
         TextView itemName;
         TextView itemPrice;
 
@@ -87,6 +88,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             super(itemView);
 
             cvListing   = (CardView) itemView.findViewById(R.id.cv_listing);
+            ltListing   = (LinearLayout) itemView.findViewById(R.id.layoutListing);
             itemName    = (TextView) itemView.findViewById(R.id.item_name);
             itemPrice   = (TextView) itemView.findViewById(R.id.item_price);
         }

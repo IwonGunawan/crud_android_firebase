@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
 
         // toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Detail");
+        toolbar.setTitle("Detail Data");
         setSupportActionBar(toolbar);
 
         // initial firebase
